@@ -1,0 +1,15 @@
+{
+	"name": "DankBot Stats",
+	"description": "Official statistics and monitoring app for DankBot on Telegram.",
+	"logo": "https://github.com/Rippr/DankBot/blob/master/branding/logo.png?raw=true",
+	"website": "https://telegram.me/therealdankbot",
+	"image": "heroku/python",
+	"repository": "https://github.com/Rippr/DankBot.git",
+	"keywords": [
+		"python",
+		"dankbot",
+		"bot",
+		"telegram"
+	],
+	"buildpacks": []
+}
