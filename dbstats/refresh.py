@@ -2,6 +2,7 @@ import os
 import traceback
 from datetime import datetime as dt
 
+from pymongo import MongoClient
 from pytz import timezone
 from requests import get
 from time import sleep
@@ -11,6 +12,10 @@ from .utils import Event, parse_command, parse_group, parse_user
 
 
 def refresh():
+	if globals.db is None:
+		mongo = MongoClient(os.environ.get('MONGODB_URI'))
+		globals.db = mongo.get_database()
+
 	reached_end, min_id = False, None
 	while not reached_end:
 		events, reached_end, min_id = search(min_id)
@@ -79,9 +84,6 @@ def process(events):
 				e = Event(u, t, g, c)
 				e.add()
 		except Exception as e:
-			print()
 			print('Exception!', e)
 			sleep(2)
 			traceback.print_tb(e.__traceback__)
-			print()
-			continue
