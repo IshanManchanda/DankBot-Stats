@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 mongo = MongoClient(os.environ.get('MONGODB_URI'))
 globals.db = mongo.get_database()
-refresh()
+# refresh()
 
 
 @app.route('/')
