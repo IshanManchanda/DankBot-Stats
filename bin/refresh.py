@@ -6,8 +6,8 @@ from pytz import timezone
 from requests import get
 from time import sleep
 
-from app import db
-from .utils import *
+from bin import globals
+from .utils import Event, parse_command, parse_group, parse_user
 
 
 def refresh():
@@ -17,7 +17,7 @@ def refresh():
 		print("Starting to process %s events." % (len(events)))
 		process(events)
 
-	db.general.find_one_and_update(
+	globals.db.general.find_one_and_update(
 		{'name': 'last_refreshed'},
 		{'$set': {'time': dt.now(tz=timezone('Asia/Kolkata'))}}
 	)
@@ -29,7 +29,8 @@ def search(min_id):
 
 	params = {
 		'q': 'app/web',
-		'min_id': min_id if min_id else db.general.find_one({'name': 'min_id'}),
+		'min_id': min_id if min_id
+		else globals.db.general.find_one({'name': 'min_id'}),
 		'tail': 'false'
 	}
 	print("Getting batch.")

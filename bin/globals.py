@@ -1,0 +1,2 @@
+db = None
+app = None

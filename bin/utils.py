@@ -1,9 +1,9 @@
 from datetime import datetime
 
+from bin import globals
+
 
 class User:
-	db = None
-
 	def __init__(self, name, user_id):
 		self.name = name
 		self.user_id = user_id
@@ -15,15 +15,13 @@ class User:
 		return '%s[%s]' % (self.name, self.user_id)
 
 	def add_if_not_found(self):
-		if User.db.users.find_one({'user_id': self.user_id}) is None:
-			User.db.users.insert_one({
+		if globals.db.users.find_one({'user_id': self.user_id}) is None:
+			globals.db.users.insert_one({
 				'name': self.name, 'user_id': self.user_id
 			})
 
 
 class Group:
-	db = None
-
 	def __init__(self, name, group_id):
 		self.name = name
 		self.group_id = group_id
@@ -35,8 +33,8 @@ class Group:
 		return '%s[%s]' % (self.name, self.group_id)
 
 	def add_if_not_found(self):
-		if Group.db.groups.find_one({'group_id': self.group_id}) is None:
-			Group.db.groups.insert_one({
+		if globals.db.groups.find_one({'group_id': self.group_id}) is None:
+			globals.db.groups.insert_one({
 				'name': self.name, 'group_id': self.group_id
 			})
 
@@ -53,8 +51,6 @@ class Command:
 
 
 class Event:
-	db = None
-
 	def __init__(self, user, timestamp, group=None, command=None):
 		self.user_name = user.name
 		self.user_id = user.user_id
@@ -68,7 +64,7 @@ class Event:
 		self.command = command.name if command else None
 
 	def add(self):
-		Event.db.events.insert_one({
+		globals.db.events.insert_one({
 			'user_name': self.user_name,
 			'user_id': self.user_id,
 			'timestamp': self.timestamp,
