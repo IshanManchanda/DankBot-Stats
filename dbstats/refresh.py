@@ -26,6 +26,7 @@ def refresh():
 def search(min_id):
 	url = 'https://papertrailapp.com/api/v1/events/search.json'
 	headers = {'X-Papertrail-Token': os.environ.get('PAPERTAIL_API_TOKEN')}
+	print(headers)
 
 	params = {
 		'q': 'app/web',
@@ -39,7 +40,9 @@ def search(min_id):
 		print("Status code: %s. Retrying..." % r.status_code)
 		r = get(url, headers=headers, params=params)
 		if r.status_code != 200:
-			raise Exception("Unable to reach papertrail API! " + r.status_code)
+			raise Exception(
+				"Unable to reach papertrail API! Status: %d" % r.status_code
+			)
 	r = r.json()
 
 	# db.general.find_one_and_update(
