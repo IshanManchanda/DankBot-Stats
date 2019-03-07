@@ -35,8 +35,11 @@ def search(min_id):
 	}
 	print("Getting batch.")
 	r = get(url, headers=headers, params=params)
-	print(r)
-	print(r.status_code)
+	if r.status_code != 200:
+		print("Status code: %s. Retrying..." % r.status_code)
+		r = get(url, headers=headers, params=params)
+		if r.status_code != 200:
+			raise Exception("Unable to reach papertrail API! " + r.status_code)
 	r = r.json()
 
 	# db.general.find_one_and_update(
