@@ -6,13 +6,24 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+ansicolors = "*"
+certifi = "*"
+chardet = "*"
+click = "*"
 flask = "*"
 gunicorn = "*"
+idna = "*"
+itsdangerous = "*"
 jinja2 = "*"
+markupsafe = "*"
 pymongo = "*"
 pypertrail = "*"
 python-dotenv = "*"
 pytz = "*"
+pyyaml = "*"
+requests = "*"
+rq = "*"
+urllib3 = "*"
 werkzeug = "*"
 
 [requires]
