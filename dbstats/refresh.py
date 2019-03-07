@@ -44,11 +44,10 @@ def search(min_id):
 			)
 	r = r.json()
 
-	# db.general.find_one_and_update(
-	# 	{'name': 'min_id'},
-	# 	{'$set': {'min_id': r['max_id']}}
-	# )
-	print("Reached end: %s" % (r['reached_end']))
+	globals.db.general.find_one_and_update(
+		{'name': 'min_id'},
+		{'$set': {'min_id': r['max_id']}}
+	)
 	return r['events'], r['reached_end'], r['max_id']
 
 
@@ -60,7 +59,6 @@ def process(events):
 			# TODO: Log DEBUG and others
 			if tokens[0] == 'INFO':
 				text = ' '.join(tokens[3:])
-				print(text)
 				c = g = u = None
 				if text[0] == '{':
 					c, g, u = parse_command(text)
@@ -78,8 +76,6 @@ def process(events):
 					u.add_if_not_found()
 
 				t = (' '.join(tokens[1:3]))[:-1]
-				print(c, g, u)
-				print()
 				e = Event(u, t, g, c)
 				e.add()
 		except Exception as e:
