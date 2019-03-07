@@ -35,7 +35,7 @@ def search(min_id):
 	params = {
 		'q': 'app/web',
 		'min_id': min_id if min_id
-		else globals.db.general.find_one({'name': 'min_id'}),
+		else globals.db.general.find_one({'name': 'min_id'})['min_id'],
 		'tail': 'false'
 	}
 	print("Getting batch. Min_id: " + str(params['min_id']))
