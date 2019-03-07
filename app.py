@@ -12,6 +12,7 @@ if 'MONGODB_URI' not in os.environ:
 
 globals.app = Flask(__name__)
 globals.app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app = globals.app
 
 mongo = MongoClient(os.environ.get('MONGODB_URI'))
 globals.db = mongo.get_database()
@@ -19,4 +20,4 @@ globals.db = mongo.get_database()
 
 if __name__ == '__main__':
 	refresh()
-	globals.app.run(host='0.0.0.0')
+	app.run(host='0.0.0.0')
