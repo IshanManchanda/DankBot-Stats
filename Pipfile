@@ -13,6 +13,7 @@ pymongo = "*"
 pypertrail = "*"
 python-dotenv = "*"
 werkzeug = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
