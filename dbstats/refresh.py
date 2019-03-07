@@ -25,9 +25,7 @@ def refresh():
 
 def search(min_id):
 	url = 'https://papertrailapp.com/api/v1/events/search.json'
-	headers = {'X-Papertrail-Token': os.environ.get('PAPERTAIL_API_TOKEN')}
-	print(os.environ)
-	print(headers)
+	headers = {'X-Papertrail-Token': os.environ.get('PAPERTRAIL_API_TOKEN')}
 
 	params = {
 		'q': 'app/web',
