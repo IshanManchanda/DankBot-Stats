@@ -38,7 +38,7 @@ def search(min_id):
 		else globals.db.general.find_one({'name': 'min_id'}),
 		'tail': 'false'
 	}
-	print("Getting batch.")
+	print("Getting batch. Min_id: " + str(params['min_id']))
 	r = get(url, headers=headers, params=params)
 	if r.status_code != 200:
 		print("Status code: %s. Retrying..." % r.status_code)
