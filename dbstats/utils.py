@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from bin import globals
+from dbstats import globals
 
 
 class User:

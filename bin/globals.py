@@ -1,2 +1,0 @@
-db = None
-app = None

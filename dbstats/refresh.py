@@ -6,7 +6,7 @@ from pytz import timezone
 from requests import get
 from time import sleep
 
-from bin import globals
+from dbstats import globals
 from .utils import Event, parse_command, parse_group, parse_user
 
 
