@@ -3,12 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>DankBot Stats</title>
+
+		<link rel="stylesheet" href="{{ url_for('static', filename='refresh.css') }}">
 	</head>
 	<body>
 		<h1>Refreshing...</h1>
 		<p>
-			Visit the <a href="https://dankbot-stats.herokuapp.com/refresh/">main page</a>
+			Visit the <a href="https://dankbot-stats.herokuapp.com/">main page</a>
 			in some time to see the updated results.
 		</p>
+
+		<script src="{{ url_for('static', filename='refresh.js') }}"></script>
 	</body>
 </html>
