@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 from pymongo import MongoClient
 from rq import Queue
 
@@ -23,17 +23,13 @@ q.enqueue(refresh)
 
 @app.route('/')
 def main():
-	return '''
-	Hi! There have been %d events in the last 2 days. <br>
-	Further, DankBot has %d active users who are a part of %d groups.
-	<br><br>
-	This data was last refreshed on %s. <br>
-	To refresh, please visit https://dankbot-stats.herokuapp.com/refresh/ 
-	''' % (
-		globals.db.events.count_documents({}),
-		globals.db.users.count_documents({}),
-		globals.db.groups.count_documents({}),
-		globals.db.general.find_one({'name': 'last_refreshed'})['time']
+	return render_template(
+		'index.html',
+		events=globals.db.events.count_documents({}),
+		users=globals.db.users.count_documents({}),
+		groups=globals.db.groups.count_documents({}),
+		last_updated=globals.db.general.find_one({'name': 'last_refreshed'})[
+			'time']
 	)
 
 
@@ -41,7 +37,7 @@ def main():
 def page_refresh():
 	if len(q) == 0:
 		q.enqueue(refresh)
-	return 'Refreshing! Please check the main page in a while.'
+	return render_template('refresh.html')
 
 
 if __name__ == '__main__':
