@@ -45,7 +45,7 @@ def store_values():
 	)
 	globals.db.general.find_one_and_update(
 		{'name': 'last_refreshed'},
-		{'$set': {'time': dt.now(tz=timezone('Asia/Kolkata'))}}
+		{'$set': {'time': dt.now()}}
 	)
 
 

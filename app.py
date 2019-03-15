@@ -1,6 +1,7 @@
 import os
 from datetime import datetime as dt
 
+import pytz
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from pymongo import MongoClient
@@ -28,15 +29,14 @@ def main():
 	last_updated = globals.db.general.find_one(
 		{'name': 'last_refreshed'}
 	)['time']
-	print(last_updated.tzinfo)
-	print(dt.now(tz=timezone('Asia/Kolkata')).tzinfo)
+	tz = timezone('Asia/Kolkata')
 	return render_template(
 		'index.html',
 		total_events=globals.db.general.find_one({'name': 'events'})['total'],
 		total_users=globals.db.general.find_one({'name': 'users'})['total'],
 		total_groups=globals.db.general.find_one({'name': 'groups'})['total'],
-		last_updated=last_updated,
-		# time_since=dt.now(tz=timezone('Asia/Kolkata')) - last_updated
+		last_updated=last_updated.replace(tzinfo=pytz.utc).astimezone(tz),
+		time_since=dt.now() - last_updated
 	)
 
 
