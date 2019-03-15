@@ -34,11 +34,13 @@ def main():
 		{'name': 'last_refreshed'}
 	)['time']
 	tz = timezone('Asia/Kolkata')
+	time_since = (dt.now() - last_refreshed)
+	hrs, remainder = divmod(time_since.seconds, 3600)
+	mins, secs = divmod(remainder, 60)
 
 	last_updated = last_refreshed.replace(tzinfo=pytz.utc).astimezone(tz). \
 		strftime('%d %b %Y %I:%M:%S%p')
-	time_since = (dt.now() - last_refreshed). \
-		strftime('%I hour(s) %M minute(s) and %S second(s).')
+	time_since = '%d hour(s) %d minute(s) and %d second(s)' % (hrs, mins, secs)
 
 	return render_template(
 		'index.html',
