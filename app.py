@@ -28,8 +28,8 @@ def main():
 	last_updated = globals.db.general.find_one(
 		{'name': 'last_refreshed'}
 	)['time']
-	print(type(last_updated))
-	print(type(dt.now(tz=timezone('Asia/Kolkata'))))
+	print(last_updated.tzinfo)
+	print(dt.now(tz=timezone('Asia/Kolkata')).tzinfo)
 	return render_template(
 		'index.html',
 		total_events=globals.db.general.find_one({'name': 'events'})['total'],
