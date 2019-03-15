@@ -21,7 +21,28 @@ def refresh():
 		events, reached_end, min_id = search(min_id)
 		print("Starting to process %s events." % (len(events)))
 		process(events)
+	store_values()
 
+
+def store_values():
+	globals.db.general.find_one_and_update(
+		{'name': 'events'},
+		{'$set': {
+			'total': globals.db.events.count_documents({})}
+		}
+	)
+	globals.db.general.find_one_and_update(
+		{'name': 'users'},
+		{'$set': {
+			'total': globals.db.users.count_documents({})}
+		}
+	)
+	globals.db.general.find_one_and_update(
+		{'name': 'groups'},
+		{'$set': {
+			'total': globals.db.groups.count_documents({})}
+		}
+	)
 	globals.db.general.find_one_and_update(
 		{'name': 'last_refreshed'},
 		{'$set': {'time': dt.now(tz=timezone('Asia/Kolkata'))}}

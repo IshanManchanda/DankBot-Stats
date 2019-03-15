@@ -1,8 +1,10 @@
 import os
+from datetime import datetime as dt
 
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from pymongo import MongoClient
+from pytz import timezone
 from rq import Queue
 
 from dbstats import globals
@@ -23,13 +25,16 @@ q.enqueue(refresh)
 
 @app.route('/')
 def main():
+	last_updated = globals.db.general.find_one(
+		{'name': 'last_refreshed'}
+	)['time']
 	return render_template(
 		'index.html',
-		events=globals.db.events.count_documents({}),
-		users=globals.db.users.count_documents({}),
-		groups=globals.db.groups.count_documents({}),
-		last_updated=globals.db.general.find_one({'name': 'last_refreshed'})[
-			'time']
+		total_events=globals.db.general.find_one({'name': 'events'})['total'],
+		total_users=globals.db.general.find_one({'name': 'users'})['total'],
+		total_groups=globals.db.general.find_one({'name': 'groups'})['total'],
+		last_updated=last_updated,
+		time_since=dt.now(tz=timezone('Asia/Kolkata')) - last_updated
 	)
 
 

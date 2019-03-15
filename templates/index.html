@@ -4,18 +4,22 @@
 		<meta charset="UTF-8">
 		<title>DankBot Stats</title>
 
-		<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+		<link rel="stylesheet"
+			href="{{ url_for('static', filename='index.css') }}">
 	</head>
 	<body>
 		<h1>DankBot Stats</h1>
 		<p>
-			DankBot has received {{ events }} messages in the last 2 days.
+			DankBot has received {{ total_events }} messages in the last week.
 			<br>
-			Further, DankBot has {{ users }} active users who are a part of {{ groups }} groups.
+			Further, DankBot has {{ total_users }} active users
+			who are a part of {{ total_groups }} groups.
 			<br><br>
 			This data was last refreshed on {{ last_updated }}.
+			Since then, it's been {{ time_since }}.
 			<br>
-			To refresh, please click <a href="https://dankbot-stats.herokuapp.com/refresh/">here</a>.
+			To refresh, please click
+			<a href="https://dankbot-stats.herokuapp.com/refresh/">here</a>.
 		</p>
 
 		<script src="{{ url_for('static', filename='index.js') }}"></script>
