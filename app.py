@@ -26,17 +26,27 @@ q.enqueue(refresh)
 
 @app.route('/')
 def main():
-	last_updated = globals.db.general.find_one(
+	total_events = globals.db.general.find_one({'name': 'events'})['total']
+	total_users = globals.db.general.find_one({'name': 'users'})['total']
+	total_groups = globals.db.general.find_one({'name': 'groups'})['total']
+
+	last_refreshed = globals.db.general.find_one(
 		{'name': 'last_refreshed'}
 	)['time']
 	tz = timezone('Asia/Kolkata')
+
+	last_updated = last_refreshed.replace(tzinfo=pytz.utc).astimezone(tz). \
+		strftime('%d %b %Y %I:%M:%S%p')
+	time_since = (dt.now() - last_refreshed). \
+		strftime('%I hour(s) %M minute(s) and %S second(s).')
+
 	return render_template(
 		'index.html',
-		total_events=globals.db.general.find_one({'name': 'events'})['total'],
-		total_users=globals.db.general.find_one({'name': 'users'})['total'],
-		total_groups=globals.db.general.find_one({'name': 'groups'})['total'],
-		last_updated=last_updated.replace(tzinfo=pytz.utc).astimezone(tz),
-		time_since=dt.now() - last_updated
+		total_events=total_events,
+		total_users=total_users,
+		total_groups=total_groups,
+		last_updated=last_updated,
+		time_since=time_since
 	)
 
 
