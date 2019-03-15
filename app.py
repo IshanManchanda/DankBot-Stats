@@ -28,13 +28,15 @@ def main():
 	last_updated = globals.db.general.find_one(
 		{'name': 'last_refreshed'}
 	)['time']
+	print(type(last_updated))
+	print(type(dt.now(tz=timezone('Asia/Kolkata'))))
 	return render_template(
 		'index.html',
 		total_events=globals.db.general.find_one({'name': 'events'})['total'],
 		total_users=globals.db.general.find_one({'name': 'users'})['total'],
 		total_groups=globals.db.general.find_one({'name': 'groups'})['total'],
 		last_updated=last_updated,
-		time_since=dt.now(tz=timezone('Asia/Kolkata')) - last_updated
+		# time_since=dt.now(tz=timezone('Asia/Kolkata')) - last_updated
 	)
 
 
