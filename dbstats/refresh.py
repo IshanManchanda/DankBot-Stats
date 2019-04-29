@@ -80,30 +80,31 @@ def search(min_id):
 def process(events):
 	for event in events:
 		try:
+			# TODO: Log DEBUG and other log levels
 			tokens = event['message'].split(' ')
+			if tokens[0] != 'INFO':
+				continue
 
-			# TODO: Log DEBUG and others
-			if tokens[0] == 'INFO':
-				text = ' '.join(tokens[3:])
-				c = g = u = None
-				if text[0] == '{':
-					c, g, u = parse_command(text)
-					if g:
-						g.add_if_not_found()
-					u.add_if_not_found()
-
-				elif text[0] == '(':
-					g, u = parse_group(text)
+			text = ' '.join(tokens[3:])
+			c = g = u = None
+			if text[0] == '{':
+				c, g, u = parse_command(text)
+				u.add_if_not_found()
+				if not g:
 					g.add_if_not_found()
-					u.add_if_not_found()
 
-				else:
-					u = parse_user(text)
-					u.add_if_not_found()
+			elif text[0] == '(':
+				g, u = parse_group(text)
+				g.add_if_not_found()
+				u.add_if_not_found()
 
-				t = (' '.join(tokens[1:3]))[:-1]
-				e = Event(u, t, g, c)
-				e.add()
+			else:
+				u = parse_user(text)
+				u.add_if_not_found()
+
+			t = (' '.join(tokens[1:3]))[:-1]
+			e = Event(u, t, g, c)
+			e.add()
 		except Exception as e:
 			print('Exception!', e)
 			sleep(2)
