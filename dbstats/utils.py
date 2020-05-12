@@ -77,19 +77,19 @@ class Event:
 def parse_user(text):
 	n1 = text.find('[')
 	n2 = text.find(']')
-	uname = text[0:n1]
-	uid = text[n1 + 1:n2]
+	u_name = text[0:n1]
+	u_id = text[n1 + 1:n2]
 
-	return User(uname, uid)
+	return User(u_name, u_id)
 
 
 def parse_group(text):
 	n1 = text.find('[')
 	n2 = text.find(']')
-	gname = text[1:n1]
-	gid = text[n1 + 1:n2]
+	g_name = text[1:n1]
+	g_id = text[n1 + 1:n2]
 
-	return Group(gname, gid), parse_user(text[n2 + 3:])
+	return Group(g_name, g_id), parse_user(text[n2 + 3:])
 
 
 def parse_command(text):

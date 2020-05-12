@@ -26,21 +26,15 @@ def refresh():
 def store_values():
 	globals.db.general.find_one_and_update(
 		{'name': 'events'},
-		{'$set': {
-			'total': globals.db.events.count_documents({})}
-		}
+		{'$set': {'total': globals.db.events.count_documents({})}}
 	)
 	globals.db.general.find_one_and_update(
 		{'name': 'users'},
-		{'$set': {
-			'total': globals.db.users.count_documents({})}
-		}
+		{'$set': {'total': globals.db.users.count_documents({})}}
 	)
 	globals.db.general.find_one_and_update(
 		{'name': 'groups'},
-		{'$set': {
-			'total': globals.db.groups.count_documents({})}
-		}
+		{'$set': {'total': globals.db.groups.count_documents({})}}
 	)
 	globals.db.general.find_one_and_update(
 		{'name': 'last_refreshed'},
@@ -95,7 +89,7 @@ def process(events):
 				continue
 
 			text = ' '.join(tokens[3:])
-			c = g = u = None
+			c = g = None
 			if text[0] == '{':
 				c, g, u = parse_command(text)
 				u.add_if_not_found()
