@@ -99,7 +99,7 @@ def process(events):
 			if text[0] == '{':
 				c, g, u = parse_command(text)
 				u.add_if_not_found()
-				if not g:
+				if g:
 					g.add_if_not_found()
 
 			elif text[0] == '(':
