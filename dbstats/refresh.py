@@ -58,22 +58,32 @@ def search(min_id):
 		else globals.db.general.find_one({'name': 'min_id'})['min_id'],
 		'tail': 'false'
 	}
-	print("Getting batch. Min_id: " + str(params['min_id']))
-	r = get(url, headers=headers, params=params)
-	if r.status_code != 200:
-		print("Status code: %s. Retrying..." % r.status_code)
+	print('Getting batch. Min_id: ' + str(params['min_id']))
+
+	# Try 3 times
+	for i in range(1, 4):
 		r = get(url, headers=headers, params=params)
+
 		if r.status_code != 200:
-			raise Exception(
-				"Unable to reach papertrail API! Status: %d" % r.status_code
-			)
+			print(f'Attempt {i}, status code: {r.status_code}.')
+			r = get(url, headers=headers, params=params)
+			continue
+		break
+	else:
+		raise Exception(
+			f'Unable to reach papertrail API! Status: {r.status_code}'
+		)
 	r = r.json()
 
 	globals.db.general.find_one_and_update(
 		{'name': 'min_id'},
 		{'$set': {'min_id': r['max_id']}}
 	)
-	return r['events'], r['reached_end'], r['max_id']
+
+	if 'reached_end' in r and r['reached_end']:
+		return r['events'], True, r['max_id']
+	else:
+		return r['events'], False, r['max_id']
 
 
 def process(events):
