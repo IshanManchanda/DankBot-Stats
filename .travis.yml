@@ -1,0 +1,28 @@
+os: linux
+dist: bionic
+
+language: python
+python:
+    - "3.8.2"
+
+branches:
+    only:
+        - master
+        - stable
+        - dev
+
+addons:
+    apt:
+        update: true
+
+install:
+    - pip install -U pip pipenv
+    - pipenv --python 3.8.2
+#    - pipenv install --dev
+
+#before_script:
+#    - pass
+
+script:
+    - pipenv install --dev
+#    - python bot.py
