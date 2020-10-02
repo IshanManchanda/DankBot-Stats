@@ -1,10 +1,10 @@
 import os
 import traceback
 from datetime import datetime as dt
-from time import sleep
 
 from pymongo import MongoClient
 from requests import get
+from time import sleep
 
 from dbstats import globals
 from .utils import Event, parse_command, parse_group, parse_user
