@@ -47,7 +47,8 @@ def main():
 		total_users=total_users,
 		total_groups=total_groups,
 		last_updated=last_updated,
-		time_since=time_since
+		time_since=time_since,
+		refresh=len(q) != 0
 	)
 
 

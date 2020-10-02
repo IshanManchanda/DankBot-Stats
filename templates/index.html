@@ -18,6 +18,8 @@
 			This data was last refreshed on {{ last_updated }} IST (UTC+5:30).
 			Since then, it's been {{ time_since }}.
 			<br>
+			Currently, a refresh is: {% if not refresh %} <b>Not</b> {% endif %} In Progress.
+			<br><br>
 			To refresh, please click
 			<a href="https://dankbot-stats.herokuapp.com/refresh/">here</a>.
 		</p>
