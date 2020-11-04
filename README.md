@@ -1,10 +1,10 @@
 # DankBot Stats
 
 DankBot is a Telegram Bot which can send, generate, and fry memes.  
-DankBot Stats is a simple analytics app for DankBot.
+DankBot-Stats is a simple Flask app that monitors DankBot and provides statistics using static log analysis.
 
 ### Major Technologies Used
-- Python 3.7
+- Python 3
 - JavaScript
 - MongoDB
 - Redis
