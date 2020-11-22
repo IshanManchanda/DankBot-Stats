@@ -9,7 +9,7 @@ verify_ssl = true
 dnspython = "==2.0.0"
 Flask = "==1.1.2"
 gunicorn = "==20.0.4"
-pymongo = "==3.11.0"
+pymongo = "==3.11.1"
 pypertrail = "==1.0.0"
 python-dotenv = "==0.15.0"
 pytz = "==2020.4"
