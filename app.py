@@ -1,6 +1,7 @@
 import os
-import pytz
 from datetime import datetime as dt
+
+import pytz
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from pymongo import MongoClient
