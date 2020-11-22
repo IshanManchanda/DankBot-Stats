@@ -18,4 +18,4 @@ requests = "==2.25.0"
 rq = "==1.6.1"
 
 [requires]
-python_full_version = "3.9.0"
+python_full_version = "3.8.6"
