@@ -14,7 +14,7 @@ pypertrail = "==1.0.0"
 python-dotenv = "==0.15.0"
 pytz = "==2020.4"
 redis = "==3.5.3"
-requests = "==2.25.0"
+requests = "==2.25.1"
 rq = "==1.6.1"
 
 [requires]
