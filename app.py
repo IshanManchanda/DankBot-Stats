@@ -39,13 +39,13 @@ def main():
 	mins, secs = divmod(remainder, 60)
 
 	last_updated = last_refreshed.replace(tzinfo=pytz.utc).astimezone(tz). \
-		strftime('%d %b %Y %I:%M:%S%p')
+		strftime('%d %b %Y %I:%M:%S %p')
 	time_since = '%d hour(s) %d minute(s) and %d second(s)' % (hrs, mins, secs)
 
 	return render_template(
 		'index.html',
-		total_events=total_events,
-		total_users=total_users,
+		total_events=f'{total_events:n}',
+		total_users=f'{total_users:n}',
 		total_groups=total_groups,
 		last_updated=last_updated,
 		time_since=time_since,
