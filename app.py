@@ -44,8 +44,8 @@ def main():
 
 	return render_template(
 		'index.html',
-		total_events=f'{total_events:n}',
-		total_users=f'{total_users:n}',
+		total_events=f'{total_events:,}',
+		total_users=f'{total_users:,}',
 		total_groups=total_groups,
 		last_updated=last_updated,
 		time_since=time_since,
