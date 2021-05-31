@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "23:30"
+  open-pull-requests-limit: 99
+  ignore:
+  - dependency-name: python-dotenv
+    versions:
+    - 0.16.0
+  - dependency-name: dnspython
+    versions:
+    - 2.1.0
+  - dependency-name: pytz
+    versions:
+    - "2020.5"
+  - dependency-name: pymongo
+    versions:
+    - 3.11.2

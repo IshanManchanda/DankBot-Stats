@@ -1,11 +1,10 @@
 import os
 from datetime import datetime as dt
 
-import pytz
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from pymongo import MongoClient
-from pytz import timezone
+from pytz import timezone, utc
 from rq import Queue
 
 from dbstats import globals
@@ -38,7 +37,7 @@ def main():
 	hrs, remainder = divmod(time_since.seconds, 3600)
 	mins, secs = divmod(remainder, 60)
 
-	last_updated = last_refreshed.replace(tzinfo=pytz.utc).astimezone(tz). \
+	last_updated = last_refreshed.replace(tzinfo=utc).astimezone(tz). \
 		strftime('%d %b %Y %I:%M:%S %p')
 	time_since = '%d hour(s) %d minute(s) and %d second(s)' % (hrs, mins, secs)
 
