@@ -1,5 +1,5 @@
-import os
 import traceback
+import os
 from datetime import datetime as dt
 
 from pymongo import MongoClient
