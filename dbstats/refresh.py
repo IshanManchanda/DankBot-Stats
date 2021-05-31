@@ -1,5 +1,5 @@
-import os
 import traceback
+import os
 from datetime import datetime as dt
 
 from pymongo import MongoClient
@@ -18,12 +18,12 @@ def refresh():
 	reached_end, min_id = False, None
 	while not reached_end:
 		events, reached_end, min_id = search(min_id)
-		print("Starting to process %s events." % (len(events)))
 		process(events)
-	store_values()
+		update_min_id(min_id)
+	update_accumulators()
 
 
-def store_values():
+def update_accumulators():
 	globals.db.general.find_one_and_update(
 		{'name': 'events'},
 		{'$set': {'total': globals.db.events.count_documents({})}}
@@ -48,31 +48,24 @@ def search(min_id):
 
 	params = {
 		'q': 'app/web',
-		'min_id': min_id if min_id
-		else globals.db.general.find_one({'name': 'min_id'})['min_id'],
+		'min_id':
+			min_id if min_id else
+			globals.db.general.find_one({'name': 'min_id'})['min_id'],
 		'tail': 'false'
 	}
 	print('Getting batch. Min_id: ' + str(params['min_id']))
 
 	# Try 3 times
-	for i in range(1, 4):
+	for i in range(3):
 		r = get(url, headers=headers, params=params)
-
 		if r.status_code != 200:
-			print(f'Attempt {i}, status code: {r.status_code}.')
-			r = get(url, headers=headers, params=params)
+			print(f'Attempt {i + 1}, status code: {r.status_code}.')
 			continue
 		break
 	else:
-		raise Exception(
-			f'Unable to reach papertrail API! Status: {r.status_code}'
-		)
-	r = r.json()
+		raise Exception(f'API issue, status: code {r.status_code}')
 
-	globals.db.general.find_one_and_update(
-		{'name': 'min_id'},
-		{'$set': {'min_id': r['max_id']}}
-	)
+	r = r.json()
 
 	if 'reached_end' in r and r['reached_end']:
 		return r['events'], True, r['max_id']
@@ -81,34 +74,64 @@ def search(min_id):
 
 
 def process(events):
+	print("Processing %s events." % (len(events)))
 	for event in events:
 		try:
-			# TODO: Log DEBUG and other log levels
 			tokens = event['message'].split(' ')
-			if tokens[0] != 'INFO':
-				continue
 
-			text = ' '.join(tokens[3:])
-			c = g = None
-			if text[0] == '{':
-				c, g, u = parse_command(text)
-				u.add_if_not_found()
-				if g:
-					g.add_if_not_found()
+			if tokens[0] == 'INFO':
+				process_info(tokens)
+			elif tokens[0] == 'DEBUG':
+				process_debug(tokens)
 
-			elif text[0] == '(':
-				g, u = parse_group(text)
-				g.add_if_not_found()
-				u.add_if_not_found()
+			elif tokens[0] == 'WARN':
+				process_warn(tokens)
+			elif tokens[0] == 'ERROR':
+				process_error(tokens)
 
-			else:
-				u = parse_user(text)
-				u.add_if_not_found()
-
-			t = (' '.join(tokens[1:3]))[:-1]
-			e = Event(u, t, g, c)
-			e.add()
 		except Exception as e:
 			print('Exception!', e)
-			sleep(2)
+			sleep(1)
 			traceback.print_tb(e.__traceback__)
+
+
+def process_info(tokens):
+	text = ' '.join(tokens[3:])
+	c = g = None
+	if text[0] == '{':
+		c, g, u = parse_command(text)
+		u.add_if_not_found()
+		if g:
+			g.add_if_not_found()
+
+	elif text[0] == '(':
+		g, u = parse_group(text)
+		g.add_if_not_found()
+		u.add_if_not_found()
+
+	else:
+		u = parse_user(text)
+		u.add_if_not_found()
+
+	t = (' '.join(tokens[1:3]))[:-1]
+	e = Event(u, t, g, c)
+	e.add()
+
+
+def process_debug(tokens):
+	pass
+
+
+def process_warn(tokens):
+	pass
+
+
+def process_error(tokens):
+	pass
+
+
+def update_min_id(min_id):
+	globals.db.general.find_one_and_update(
+		{'name': 'min_id'},
+		{'$set': {'min_id': min_id}}
+	)
