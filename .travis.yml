@@ -3,7 +3,7 @@ dist: bionic
 
 language: python
 python:
-    - "3.8.10"
+    - "3.8.7"
 
 branches:
     only:
@@ -17,7 +17,7 @@ addons:
 
 install:
     - pip install -U pip pipenv
-    - pipenv --python 3.8.10
+    - pipenv --python 3.8.7
 #    - pipenv install --dev
 
 #before_script:
