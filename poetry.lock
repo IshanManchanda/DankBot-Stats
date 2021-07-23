@@ -255,8 +255,8 @@ watchdog = ["watchdog"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "61af275bbc19d863b37ff56900ba3a3fcc02063704366cb822664b3a7be1b1f5"
+python-versions = "3.9.6"
+content-hash = "7a008ba9706841e03498a7669d305b89e66946f188379a84f2c5f9745007fb83"
 
 [metadata.files]
 ansicolors = [
