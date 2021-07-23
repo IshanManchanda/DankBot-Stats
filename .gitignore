@@ -9,6 +9,11 @@ Archive/
 *.log
 
 
+# PDM Files
+.pdm.toml
+__pypackages__/
+
+
 # IntelliJ project files
 .idea
 *.iml
