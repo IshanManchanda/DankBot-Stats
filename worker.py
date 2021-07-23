@@ -9,7 +9,7 @@ if 'MONGODB_URI' not in os.environ:
 listen = ['high', 'default', 'low']
 
 redis_url = os.getenv('REDIS_TLS_URL')
-conn = redis.from_url(redis_url)
+conn = redis.from_url(redis_url, ssl_cert_reqs=None)
 
 if __name__ == '__main__':
 	with Connection(conn):
