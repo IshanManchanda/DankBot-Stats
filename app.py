@@ -34,7 +34,7 @@ def main():
 	)['time']
 	tz = timezone('Asia/Kolkata')
 	time_since = (dt.now() - last_refreshed)
-	hrs, remainder = divmod(time_since.seconds, 3600)
+	hrs, remainder = divmod(time_since.total_seconds(), 3600)
 	mins, secs = divmod(remainder, 60)
 
 	last_updated = last_refreshed.replace(tzinfo=utc).astimezone(tz). \
