@@ -93,7 +93,6 @@ def parse_group(text):
 
 
 def parse_command(text):
-	print('PARSE_COMMAND CALLED WITH:', text)
 	n = text.find('}')
 	c = Command(text[1:n])
 	if text[n + 2] == '(':
