@@ -223,7 +223,7 @@ requests = ">=2.11.1"
 
 [[package]]
 name = "python-dotenv"
-version = "0.19.1"
+version = "0.20.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
 category = "main"
 optional = false
@@ -342,7 +342,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.6"
-content-hash = "db35a01ee34d0533acde2b5115a9a3bca9002c59873f94546a4ae679f3a271a4"
+content-hash = "9c551bd9a21fab89868abaaeb40b949b03a251a3c1a633e0d717b2d2ce106fad"
 
 [metadata.files]
 ansicolors = [
@@ -570,8 +570,8 @@ pypertrail = [
     {file = "pypertrail-1.0.0.tar.gz", hash = "sha256:3f98883f179b1b4f74d07b0aae714689d3b9829295dc4d84d18847517c62b9f1"},
 ]
 python-dotenv = [
-    {file = "python-dotenv-0.19.1.tar.gz", hash = "sha256:14f8185cc8d494662683e6914addcb7e95374771e707601dfc70166946b4c4b8"},
-    {file = "python_dotenv-0.19.1-py2.py3-none-any.whl", hash = "sha256:bbd3da593fc49c249397cbfbcc449cf36cb02e75afc8157fcc6a81df6fb7750a"},
+    {file = "python-dotenv-0.20.0.tar.gz", hash = "sha256:b7e3b04a59693c42c36f9ab1cc2acc46fa5df8c78e178fc33a8d4cd05c8d498f"},
+    {file = "python_dotenv-0.20.0-py3-none-any.whl", hash = "sha256:d92a187be61fe482e4fd675b6d52200e7be63a12b724abbf931a40ce4fa92938"},
 ]
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
